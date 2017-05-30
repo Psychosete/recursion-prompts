@@ -120,12 +120,28 @@ var exponent = function(base, exp) {
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
-var powerOfTwo = function(n) {
-  // this is a test
+var powerOfTwo = function(num) {
+  // if num is 1
+  if (num === 1) {
+    return true;
+  }
+    // return true
+  if (num < 1) {
+    return false;
+  }
+  // if num  < 1
+    // return false
+  return powerOfTwo(num / 2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+  // if string is empty
+  if (string.length === 0) {
+    return '';
+  }
+  var chars =  string.split('');
+  return `${chars.pop()}${reverse(chars.join(''))}`;
 };
 
 // 10. Write a function that determines if a string is a palindrome.
@@ -323,7 +339,47 @@ var mergeSort = function(array) {
 // 40. Deeply clone objects and arrays.
 // var obj1 = {a:1,b:{bb:{bbb:2}},c:3};
 // var obj2 = clone(obj1);
-// console.log(obj2); // {a:1,b:{bb:{bbb:2}},c:3}
+  // console.log(obj2); // {a:1,b:{bb:{bbb:2}},c:3}
 // obj1 === obj2 // false
 var clone = function(input) {
+  // var arr = [];
+  // var obj = {};
+  // if input is array
+  if (Array.isArray(input)) {
+    var array = [];
+    input.forEach(el => {
+    // iterate thru each k/v pair in array
+      // if value is an array 
+      if (typeof el === 'object') {
+      // else if value is object
+        // push clone of value to array
+        array.push(clone(el));
+      // else push element to array
+      } else {
+        array.push(el);
+      }
+    });
+    return array;
+  } else if (typeof input === 'object') {
+
+  // if input is object 
+    var obj = {};
+    // iterate thru k/v pair
+    for (var key in input) {
+      if (typeof input[key] === 'object') {
+
+      // if value is array
+        obj[key] = clone(input[key]);
+
+      } else {
+      // else 
+        obj[key] = input[key];
+        // put k/v pair into obj
+        
+      }
+    }
+    // return object
+    return obj;
+  }
+
 };
